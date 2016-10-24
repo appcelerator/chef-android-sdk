@@ -75,12 +75,16 @@ end
   end
 end
 
-directory 'Grant all users to execute android tools' do
-  path File.join(android_home, 'tools')
-  owner node['android-sdk']['owner']
+# TODO: find a way to handle 'chmod stuff' below with own chef resource (idempotence stuff...)
+execute 'Grant all users to read android files' do
+  command "chmod -R a+r #{android_home}/*"
+  user node['android-sdk']['owner']
   group node['android-sdk']['group']
-  mode 0777
-  recursive true
+end
+execute 'Grant all users to execute android tools' do
+  command "chmod -R a+X #{File.join(android_home, 'tools')}/*"
+  user node['android-sdk']['owner']
+  group node['android-sdk']['group']
 end
 
 #
@@ -98,8 +102,8 @@ template "/etc/profile.d/#{node['android-sdk']['name']}.sh" do
 end
 
 # Mac OS X already has expect
-unless node['platform'] == 'mac_os_x'
-  package 'expect'
+package 'expect' do
+  not_if { node['platform'] == 'mac_os_x' }
 end
 
 #

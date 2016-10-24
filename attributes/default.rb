@@ -1,13 +1,27 @@
+# default file/URL/checksum for linux
+platform = 'linux'
+extension = 'tgz'
+checksum = 'f2bb546534d16e2004665257ee530060338c684adad14a49cd4bbde08098d8a4' # FIXME Get value for 24.4.1!
+group = 'root'
+
+# Overrides for Mac OS X
+if node['platform'] == 'mac_os_x'
+  extension = 'zip'
+  platform = 'macosx'
+  checksum = 'ce1638cb48526a0e55857fc46b57eda4349e6512006244ad13dd6c1361c74104'
+  group = 'wheel'
+end
+
 default['android-sdk']['name']                      = 'android-sdk'
 default['android-sdk']['owner']                     = 'root'
-default['android-sdk']['group']                     = 'root'
+default['android-sdk']['group']                     = group
 default['android-sdk']['setup_root']                = nil  # ark defaults (/usr/local) is used if this attribute is not defined
 default['android-sdk']['with_symlink']              = true # use ark's :install action when true; use ark's :put action when false
 default['android-sdk']['set_environment_variables'] = true
 
-default['android-sdk']['version']                   = '24.4'
-default['android-sdk']['checksum']                  = 'f2bb546534d16e2004665257ee530060338c684adad14a49cd4bbde08098d8a4'
-default['android-sdk']['download_url']              = "http://dl.google.com/android/android-sdk_r#{node['android-sdk']['version']}-linux.tgz"
+default['android-sdk']['version']                   = '24.4.1'
+default['android-sdk']['checksum']                  = checksum
+default['android-sdk']['download_url']              = "http://dl.google.com/android/android-sdk_r#{node['android-sdk']['version']}-#{platform}.#{extension}"
 
 #
 # List of Android SDK components to preinstall:
