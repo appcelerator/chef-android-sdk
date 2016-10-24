@@ -97,7 +97,10 @@ template "/etc/profile.d/#{node['android-sdk']['name']}.sh" do
   only_if { node['android-sdk']['set_environment_variables'] }
 end
 
-package 'expect'
+# Mac OS X already has expect
+unless node['platform'] == 'mac_os_x'
+  package 'expect'
+end
 
 #
 # Install, Update (a.k.a. re-install) Android components
