@@ -3,7 +3,7 @@ maintainer 'Gilles Cornu'
 maintainer_email 'foss@gilles.cornu.name'
 license 'Apache 2.0'
 description 'Installs Google Android SDK'
-version '0.2.0'
+version '0.2.1'
 
 %w(java ark).each do |dep|
   depends dep
@@ -14,6 +14,7 @@ recommends 'maven' # Maven 3.1.1+ is required by android-sdk::maven-rescue recip
 
 supports 'ubuntu', '>= 12.04'
 supports 'centos', '>= 6.6'
+supports 'mac_os_x'
 # Support for more platforms is on the road (e.g. Debian, CentOS,...).
 # Please watch or help on https://github.com/gildegoma/chef-android-sdk/issues/5
 
