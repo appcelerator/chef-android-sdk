@@ -1,14 +1,14 @@
 # default file/URL/checksum for linux
 platform = 'linux'
 extension = 'tgz'
-checksum = 'f2bb546534d16e2004665257ee530060338c684adad14a49cd4bbde08098d8a4' # FIXME Get value for 24.4.1!
+checksum = 'e16917ad685c1563ccbc5dd782930ee1a700a1b6a6fd3e44b83ac694650435e9' # 24.4.1 linux checksum
 group = 'root'
 
 # Overrides for Mac OS X
 if node['platform'] == 'mac_os_x'
   extension = 'zip'
   platform = 'macosx'
-  checksum = 'ce1638cb48526a0e55857fc46b57eda4349e6512006244ad13dd6c1361c74104'
+  checksum = 'ce1638cb48526a0e55857fc46b57eda4349e6512006244ad13dd6c1361c74104' # 24.4.1 mac checksum
   group = 'wheel'
 end
 
