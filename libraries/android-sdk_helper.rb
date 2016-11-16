@@ -48,9 +48,18 @@ class Chef
           Dir["#{android_home}/add-ons/*/"].each {|d| installed << File.basename(d) }
         end
         if Dir.exist?("#{android_home}/system-images")
-          Dir["#{android_home}/system-images/*/"].each do |apiLevel|
-            Dir["#{apiLevel}/default/*/"].each do |abi|
-              installed << "sys-img-#{File.basename(abi)}-#{File.basename(apiLevel)}"
+          Dir["#{android_home}/system-images/*/"].each do |apiLevelDir|
+            # strip leading 'android-' to get numeric apiLevel
+            apiLevel = File.basename(apiLevelDir).sub('android-', '')
+            Dir["#{apiLevelDir}/*/"].each do |tagDir|
+              # tag is name of the dir, but 'default' should become 'android'
+              tag = File.basename(tagDir).sub('default', 'android')
+              Dir["#{tagDir}/*/"].each do |abiDir|
+                abi = File.basename(abiDir)
+                # i.e. sys-img-x86-android-23
+                # sys-img-x86_64-google_apis-23
+                installed << "sys-img-#{abi}-#{tag}-#{apiLevel}"
+              end
             end
           end
         end
