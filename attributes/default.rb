@@ -65,6 +65,9 @@ default['android-sdk']['license']['white_list']     = %w(.+)
 default['android-sdk']['license']['black_list']     = []    # e.g. ['intel-.+', 'mips-.+', 'android-wear-sdk-license-.+']
 default['android-sdk']['license']['default_answer'] = 'n'   # 'y' or 'n' ('yes' or 'no')
 
+# Timeout in seconds for sdk component install expect script
+default['android-sdk']['install-timeout']           = 1800
+
 default['android-sdk']['scripts']['path']           = '/usr/local/bin'
 default['android-sdk']['scripts']['owner']          = node['android-sdk']['owner']
 default['android-sdk']['scripts']['group']          = node['android-sdk']['group']

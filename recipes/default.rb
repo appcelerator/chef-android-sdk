@@ -122,7 +122,7 @@ node['android-sdk']['components'].each do |sdk_component|
     # TODO: use --force or not?
     code <<-EOF
       spawn #{android_bin} update sdk --no-ui --all --filter #{sdk_component}
-      set timeout 1800
+      set timeout #{node['android-sdk']['install-timeout']}
       expect {
         -regexp "Do you accept the license '(#{node['android-sdk']['license']['white_list'].join('|')})'.*" {
               exp_send "y\r"
