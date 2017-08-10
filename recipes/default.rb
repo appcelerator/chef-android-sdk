@@ -25,13 +25,15 @@
 
 include_recipe 'java' unless node['android-sdk']['java_from_system']
 
-android_bin      = File.join(android_home, 'tools', 'android')
+android_bin      = File.join(android_home, 'tools', 'bin', 'sdkmanager')
 
 #
 # Install required libraries
 #
 if node['platform'] == 'ubuntu'
+  apt_update 'update'
   package 'libgl1-mesa-dev'
+  package 'unzip'
 
   #
   # Install required 32-bit libraries on 64-bit platforms
@@ -48,6 +50,8 @@ if node['platform'] == 'ubuntu'
   end
 end
 
+# TODO Need to create the intended path. The zip just holds a tools folder!
+
 #
 # Download and setup android-sdk tarball package
 #
@@ -60,7 +64,8 @@ ark node['android-sdk']['name'] do
   prefix_home node['android-sdk']['setup_root']
   owner node['android-sdk']['owner']
   group node['android-sdk']['group']
-  action node['android-sdk']['with_symlink'] ? :install : :put
+  action :put
+  strip_components 0
 end
 
 #
@@ -117,22 +122,12 @@ node['android-sdk']['components'].each do |sdk_component|
     interpreter 'expect'
     environment 'ANDROID_HOME' => android_home
     path [File.join(android_home, 'tools')]
-    user node['android-sdk']['owner']
-    group node['android-sdk']['group']
     # TODO: use --force or not?
     code <<-EOF
-      spawn #{android_bin} update sdk --no-ui --all --filter #{sdk_component}
+      spawn #{android_bin} "#{sdk_component}"
       set timeout #{node['android-sdk']['install-timeout']}
       expect {
-        -regexp "Do you accept the license '(#{node['android-sdk']['license']['white_list'].join('|')})'.*" {
-              exp_send "y\r"
-              exp_continue
-        }
-        -regexp "Do you accept the license '(#{node['android-sdk']['license']['black_list'].join('|')})'.*" {
-              exp_send "n\r"
-              exp_continue
-        }
-        "Do you accept the license '*-license-*'*" {
+        "Accept? (y/N):" {
               exp_send "#{node['android-sdk']['license']['default_answer']}\r"
               exp_continue
         }
