@@ -46,7 +46,7 @@ timestamps {
 			stage('Test') {
 				sh 'berks install' // installs all the cookbooks to local cache, using Berksfile.lock
 				try {
-					sh 'kitchen test'
+					sh 'kitchen test default-ubuntu-1604'
 				}
 				finally {
 					junit '*_inspec.xml'
