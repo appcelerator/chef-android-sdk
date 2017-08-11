@@ -32,7 +32,7 @@ Vagrant.configure('2') do |config|
 
     chef.json = {
       'java' => {
-        'jdk_version' => '7'
+        'jdk_version' => '7',
       },
       'android-sdk' => {
         'owner' => 'vagrant',
@@ -42,8 +42,8 @@ Vagrant.configure('2') do |config|
         # 'with_symlink' => false,
         # 'java_from_system' => true,
         'maven_rescue' => true,
-        'maven_local_repository' => '/home/vagrant/.m2/repository'
-      }
+        'maven_local_repository' => '/home/vagrant/.m2/repository',
+      },
     }
   end
 end

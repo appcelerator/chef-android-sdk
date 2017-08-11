@@ -4,7 +4,13 @@ driver:
 
 provisioner:
   name: chef_solo
-  require_chef_omnibus: 11.14
+  require_chef_omnibus: 12.19.36
+  chef_omnibus_url: http://omnitruck.chef.io/install.sh
+
+verifier:
+  name: inspec
+  format: junit
+  output: ./%{platform}_%{suite}_inspec.xml
 
 platforms:
 
@@ -16,6 +22,13 @@ platforms:
       - recipe[apt]
 
 - name: ubuntu-14.04
+  driver:
+    customize:
+      memory: 384
+    run_list:
+      - recipe[apt]
+
+- name: ubuntu-16.04
   driver:
     customize:
       memory: 384
@@ -48,20 +61,29 @@ suites:
       owner: vagrant
       group: vagrant
     components:
-      - build-tools-22.1.0
-      - android-22
-      - sysimg-22
+      - build-tools;22.0.1
+      - platforms;android-22
+      - system-images;android-22;default;armeabi-v7a
     java:
-      jdk_version: 7
+      install_flavor: oracle
+      jdk_version: 8
+      oracle:
+        accept_oracle_download_terms: true
 
 - name: default
   run_list:
     - recipe[android-sdk]
   attributes:
     java:
-      jdk_version: 7
+      install_flavor: oracle
+      jdk_version: 8
+      oracle:
+        accept_oracle_download_terms: true
     android-sdk:
+      license:
+        default_answer: y
+      set_environment_variables: true
       components:
-        - build-tools-22.0.1
-        - android-22
-        - sys-img-armeabi-v7a-android-22
+        - build-tools;22.0.1
+        - platforms;android-22
+        - system-images;android-22;default;armeabi-v7a

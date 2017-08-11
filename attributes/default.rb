@@ -1,27 +1,27 @@
 # default file/URL/checksum for linux
 platform = 'linux'
-extension = 'tgz'
-checksum = 'e16917ad685c1563ccbc5dd782930ee1a700a1b6a6fd3e44b83ac694650435e9' # 24.4.1 linux checksum
+checksum = '444e22ce8ca0f67353bda4b85175ed3731cae3ffa695ca18119cbacef1c1bea0' # sdk tools 3859397 linux checksum
 group = 'root'
 
 # Overrides for Mac OS X
 if node['platform'] == 'mac_os_x'
-  extension = 'zip'
   platform = 'macosx'
-  checksum = 'ce1638cb48526a0e55857fc46b57eda4349e6512006244ad13dd6c1361c74104' # 24.4.1 mac checksum
+  checksum = '4a81754a760fce88cba74d69c364b05b31c53d57b26f9f82355c61d5fe4b9df9' # sdk tools 3859397 mac checksum
   group = 'wheel'
+elsif node['platform'] == 'windows'
+  platform = 'windows'
+  checksum = '7f6037d3a7d6789b4fdc06ee7af041e071e9860c51f66f7a4eb5913df9871fd2' # sdk tools 3859397 windows checksum
 end
 
 default['android-sdk']['name']                      = 'android-sdk'
 default['android-sdk']['owner']                     = 'root'
 default['android-sdk']['group']                     = group
-default['android-sdk']['setup_root']                = nil  # ark defaults (/usr/local) is used if this attribute is not defined
-default['android-sdk']['with_symlink']              = true # use ark's :install action when true; use ark's :put action when false
+default['android-sdk']['setup_root']                = nil # ark defaults (/usr/local) is used if this attribute is not defined
 default['android-sdk']['set_environment_variables'] = true
 
-default['android-sdk']['version']                   = '24.4.1'
+default['android-sdk']['version']                   = '3859397'
 default['android-sdk']['checksum']                  = checksum
-default['android-sdk']['download_url']              = "http://dl.google.com/android/android-sdk_r#{node['android-sdk']['version']}-#{platform}.#{extension}"
+default['android-sdk']['download_url']              = "https://dl.google.com/android/repository/sdk-tools-#{platform}-#{node['android-sdk']['version']}.zip"
 
 #
 # List of Android SDK components to preinstall:
@@ -35,31 +35,12 @@ default['android-sdk']['download_url']              = "http://dl.google.com/andr
 # Note that it will require (waste) some extra download effort.
 #
 default['android-sdk']['components']                = %w( platform-tools
-                                                          build-tools-23.0.1
-                                                          android-23
-                                                          sys-img-armeabi-v7a-android-23
-                                                          sys-img-armeabi-v7a-android-tv-23
-                                                          android-22
-                                                          sys-img-armeabi-v7a-android-22
-                                                          android-21
-                                                          sys-img-armeabi-v7a-android-21
-                                                          android-20
-                                                          sys-img-armeabi-v7a-android-wear-20
-                                                          android-19
-                                                          sys-img-armeabi-v7a-android-19
-                                                          android-18
-                                                          sys-img-armeabi-v7a-android-18
-                                                          android-17
-                                                          sys-img-armeabi-v7a-android-17
-                                                          android-16
-                                                          sys-img-armeabi-v7a-android-16
-                                                          android-15
-                                                          sys-img-armeabi-v7a-android-15
-                                                          android-10
-                                                          extra-android-support
-                                                          extra-google-google_play_services
-                                                          extra-google-m2repository
-                                                          extra-android-m2repository )
+                                                          build-tools;26.0.1
+                                                          platforms;android-23
+                                                          system-images;android-23;default;armeabi-v7a
+                                                          extras;google;google_play_services
+                                                          extras;google;m2repository
+                                                          extras;android;m2repository )
 
 default['android-sdk']['license']['white_list']     = %w(.+)
 default['android-sdk']['license']['black_list']     = []    # e.g. ['intel-.+', 'mips-.+', 'android-wear-sdk-license-.+']

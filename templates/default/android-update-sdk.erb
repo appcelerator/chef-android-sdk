@@ -5,24 +5,5 @@
 
 set +e
 
-# Defaults
-LICENSES="<%= node['android-sdk']['license']['white_list'].join('|') %>"
-
-for i in "$@"
-do
-case $i in
-    --components=*)
-    COMPONENTS=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
-    ;;
-    --accept-licenses=*)
-    LICENSES=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
-    ;;
-    *)
-    # unknown option
-    ;;
-esac
-done
-
 echo "Installing $COMPONENTS"
-android-accept-licenses "android update sdk --no-ui --all --filter $COMPONENTS" "$LICENSES"
-
+android-accept-licenses "sdkmanager --update"
