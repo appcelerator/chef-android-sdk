@@ -50,7 +50,7 @@ if node['platform'] == 'ubuntu'
   end
 end
 
-# TODO: Need to create the intended path. The zip just holds a tools folder!
+# FIXME: If upgrading from an old tools zip, we need to forcibly remove the old version!
 
 #
 # Download and setup android-sdk tarball package
