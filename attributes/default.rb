@@ -5,7 +5,7 @@ group = 'root'
 
 # Overrides for Mac OS X
 if node['platform'] == 'mac_os_x'
-  platform = 'macosx'
+  platform = 'darwin'
   checksum = '4a81754a760fce88cba74d69c364b05b31c53d57b26f9f82355c61d5fe4b9df9' # sdk tools 3859397 mac checksum
   group = 'wheel'
 elsif node['platform'] == 'windows'
