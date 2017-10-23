@@ -120,8 +120,10 @@ end
 node['android-sdk']['components'].each do |sdk_component|
   script "Install Android SDK component #{sdk_component}" do
     interpreter 'expect'
-    environment 'ANDROID_HOME' => android_home
-    path [File.join(android_home, 'tools')]
+    environment(
+      'ANDROID_HOME' => android_home,
+      'PATH' => "#{File.join(android_home, 'tools')}:#{ENV['PATH']}"
+    )
     # TODO: use --force or not?
     code <<-EOF
       spawn #{android_bin} "#{sdk_component}"

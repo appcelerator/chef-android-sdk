@@ -22,7 +22,7 @@ timestamps {
 				echo "kitchen version: ${kitchenVersion}"
 
 				ansiColor('xterm') {
-					sh(returnStatus: true, script: 'foodcritic -f correctness -B .')
+					sh(returnStatus: true, script: 'foodcritic -B .')
 					sh(returnStatus: true, script: 'cookstyle --fail-level E .') // Cookstyle wraps rubocop
 				} // ansiColor
 				warnings(
