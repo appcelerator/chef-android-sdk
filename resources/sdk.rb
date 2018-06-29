@@ -8,12 +8,12 @@ default_action :install
 
 # TODO: Add a mapping from the "nice names" (like 26.0.2) to the specific version/rev under the hood with checksums
 CHECKSUMS = {
-  '4333796': {
+  '4333796' => {
     'darwin'  => 'ecb29358bc0f13d7c2fa0f9290135a5b608e38434aad9bf7067d0252c160853e',
     'linux'   => '92ffee5a1d98d856634e8b71132e8a95d96c83a63fde1099be3d86df3106def9',
     'windows' => '7e81d69c303e47a4f0e748a6352d85cd0c8fd90a5a95ae4e076b5e5f960d3c7a',
   },
-  '3859397': {
+  '3859397' => {
     'darwin'  => '4a81754a760fce88cba74d69c364b05b31c53d57b26f9f82355c61d5fe4b9df9',
     'linux'   => '444e22ce8ca0f67353bda4b85175ed3731cae3ffa695ca18119cbacef1c1bea0',
     'windows' => '7f6037d3a7d6789b4fdc06ee7af041e071e9860c51f66f7a4eb5913df9871fd2',
