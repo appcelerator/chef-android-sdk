@@ -43,10 +43,6 @@ platforms:
 
 suites:
 
-- name: sdk
-  run_list:
-    - recipe[test::sdk]
-
 - name: ndk
   run_list:
     - recipe[test::ndk]
@@ -55,11 +51,7 @@ suites:
   run_list:
     - recipe[test::emulator]
 
-- name: component
-  run_list:
-    - recipe[test::component]
-
-- name: default
+- name: default # covers sdk and component resources
   run_list:
     - recipe[android]
   attributes:
