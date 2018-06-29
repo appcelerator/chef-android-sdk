@@ -27,14 +27,13 @@ property :sdk, String, default: ::File.join(node['ark']['prefix_home'], 'android
 
 action :install do
   home = new_resource.home || ::Dir.home(new_resource.user)
+  avd_dir = "#{home}/.android/avd"
 
   # Create working directory for AVD
   directory "#{home}/.android" do
     owner new_resource.user
     group new_resource.group
   end
-
-  avd_dir = "#{home}/.android/avd"
 
   directory avd_dir do
     owner new_resource.user
@@ -72,7 +71,7 @@ action :install do
     environment lazy {
       {
         'HOME' => home,
-        'USER' => new_resource.user
+        'USER' => new_resource.user,
       }
     }
     action :nothing
@@ -88,9 +87,9 @@ action :install do
   # end
 end
 
-
 action :uninstall do
   home = new_resource.home || ::Dir.home(new_resource.user)
+  avd_dir = "#{home}/.android/avd"
 
   execute "delete avd #{new_resource.name}" do
     command "echo | #{new_resource.sdk}/tools/bin/avdmanager delete avd -n '#{new_resource.name}'"

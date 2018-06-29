@@ -21,12 +21,9 @@ class Chef
         installed << 'platform-tools' if Dir.exist?("#{android_home}/platform-tools")
         installed << 'docs' if Dir.exist?("#{android_home}/docs")
 
-        if Dir.exist?("#{android_home}/build-tools")
-          Dir["#{android_home}/build-tools/*/"].each { |d| installed << "build-tools;#{File.basename(d)}" }
-        end
-        if Dir.exist?("#{android_home}/platforms")
-          Dir["#{android_home}/platforms/*/"].each { |d| installed << "platforms;#{File.basename(d)}" }
-        end
+        Dir["#{android_home}/build-tools/*/"].each { |d| installed << "build-tools;#{File.basename(d)}" } if Dir.exist?("#{android_home}/build-tools")
+        Dir["#{android_home}/platforms/*/"].each { |d| installed << "platforms;#{File.basename(d)}" } if Dir.exist?("#{android_home}/platforms")
+
         if Dir.exist?("#{android_home}/extras")
           Dir["#{android_home}/extras/*/"].each do |d|
             # need to recurse again
@@ -35,9 +32,9 @@ class Chef
             end
           end
         end
-        if Dir.exist?("#{android_home}/add-ons")
-          Dir["#{android_home}/add-ons/*/"].each { |d| installed << "addons;#{File.basename(d)}" }
-        end
+
+        Dir["#{android_home}/add-ons/*/"].each { |d| installed << "addons;#{File.basename(d)}" } if Dir.exist?("#{android_home}/add-ons")
+
         if Dir.exist?("#{android_home}/system-images")
           Dir["#{android_home}/system-images/*/"].each do |api_level_dir|
             # get android-apilevel

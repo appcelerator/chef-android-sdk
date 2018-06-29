@@ -6,7 +6,7 @@ resource_name :android_sdk
 
 default_action :install
 
-# TODO Add a mapping fromt he "nice names" (like 26.0.2) to the specific version/rev under the hood with checksums
+# TODO: Add a mapping from the "nice names" (like 26.0.2) to the specific version/rev under the hood with checksums
 CHECKSUMS = {
   '4333796': {
     'darwin'  => 'ecb29358bc0f13d7c2fa0f9290135a5b608e38434aad9bf7067d0252c160853e',
@@ -47,7 +47,6 @@ def initialize(*args)
 end
 
 action :install do
-
   android_home = ::File.join(new_resource.path || node['ark']['prefix_home'], 'android-sdk')
   checksum = new_resource.checksum || CHECKSUMS[new_resource.version.to_sym][platform]
   url = new_resource.url || "https://dl.google.com/android/repository/sdk-tools-#{platform}-#{new_resource.version}.zip"
@@ -97,15 +96,14 @@ action :install do
   end
 
   # Configure environment variables (ANDROID_HOME and PATH)
-  template "/etc/profile.d/android-sdk.sh" do
-    source 'android-sdk.sh.erb'
+  template '/etc/profile.d/android-sdk.sh' do
     mode 0644
     owner new_resource.owner
     group new_resource.group
     cookbook 'android'
     variables lazy {
       {
-        android_home: android_home
+        android_home: android_home,
       }
     }
   end
