@@ -58,7 +58,7 @@ action :install do
       }
     }
     # If first time, or config has changed, launch the emulator once
-    notifies :run, 'execute[launch emulator]', :immediate
+    notifies :run, "execute[launch emulator #{new_resource.name}]", :immediate
   end
 
   # Launch emulator for first time
