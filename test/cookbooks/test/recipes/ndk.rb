@@ -1,6 +1,4 @@
 user 'random' do
-  manage_home true
-  home '/home/random'
   group 'staff'
 end
 
