@@ -10,4 +10,6 @@ group :integration do
   # TODO: better understand Berkshelf, and how to DRY .kitchen.yml and Berksfile...
   cookbook 'maven'
   cookbook 'git'
+
+  cookbook 'test', path: './test/cookbooks/test'
 end

@@ -3,30 +3,17 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_solo
-  require_chef_omnibus: 13.4.19
-  chef_omnibus_url: http://omnitruck.chef.io/install.sh
+  name: chef_zero
+  product_name: chef
+  product_version: 13.4.19
+  install_strategy: always # Install exact version we want, don't skip if there's any sort of install in the VM
 
 verifier:
   name: inspec
   format: junit
-  output: ./%{platform}_%{suite}_inspec.xml
+  output: ./%{suite}-%{platform}-inspec.xml
 
 platforms:
-
-- name: ubuntu-12.04
-  driver:
-    customize:
-      memory: 384
-    run_list:
-      - recipe[apt]
-
-- name: ubuntu-14.04
-  driver:
-    customize:
-      memory: 384
-    run_list:
-      - recipe[apt]
 
 - name: ubuntu-16.04
   driver:
@@ -34,56 +21,54 @@ platforms:
       memory: 384
     run_list:
       - recipe[apt]
+  attributes:
+    java:
+      install_flavor: oracle
+      jdk_version: 8
+      oracle:
+        accept_oracle_download_terms: true
 
-- name: centos-6.6
+- name: macos-sierra
   driver:
-    customize:
-      memory: 512
-    run_list:
-      - recipe[yum]
-
-- name: centos-7.1
-  driver:
-    customize:
-      memory: 512
-    run_list:
-      - recipe[yum]
+    box: gobadiah/macos-sierra
+    boot_timeout: 1200
+  attributes:
+    virtualization:
+      system: vbox
+      role: guest
+    java:
+      jdk_version: 8
+    android-sdk:
+      java_from_system: false
 
 suites:
 
-- name: wip # be prepared to work on https://github.com/gildegoma/chef-android-sdk/issues/14 (maven-android-sdk-deployer)
+- name: sdk
   run_list:
-    - recipe[git]
-    - recipe[maven]
-    - recipe[android-sdk]
-  attributes:
-    android-sdk:
-      owner: vagrant
-      group: vagrant
-    components:
-      - build-tools;22.0.1
-      - platforms;android-22
-      - system-images;android-22;default;armeabi-v7a
-    java:
-      install_flavor: oracle
-      jdk_version: 8
-      oracle:
-        accept_oracle_download_terms: true
+    - recipe[test::sdk]
+
+- name: ndk
+  run_list:
+    - recipe[test::ndk]
+
+- name: emulator
+  run_list:
+    - recipe[test::emulator]
+
+- name: component
+  run_list:
+    - recipe[test::component]
 
 - name: default
   run_list:
-    - recipe[android-sdk]
+    - recipe[android]
   attributes:
-    java:
-      install_flavor: oracle
-      jdk_version: 8
-      oracle:
-        accept_oracle_download_terms: true
     android-sdk:
       license:
         default_answer: y
       set_environment_variables: true
       components:
-        - build-tools;22.0.1
-        - platforms;android-22
-        - system-images;android-22;default;armeabi-v7a
+        - platform-tools
+        - build-tools;26.0.1
+        - platforms;android-23
+        - system-images;android-23;google_apis;armeabi-v7a

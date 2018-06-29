@@ -1,6 +1,6 @@
 Vagrant.configure('2') do |config|
   #
-  # Vagrant Base Box and virutal hardware tuning
+  # Vagrant Base Box and virtual hardware tuning
   #
 
   # config.vm.box = "ubuntu/precise64"

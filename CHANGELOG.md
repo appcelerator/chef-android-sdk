@@ -1,6 +1,23 @@
 CHANGELOG for Android-SDK cookbook
 ==================================
 
+v2.0.0 (2018-06-29)
+-------------------
+
+This is a nearly total re-write of the cookbook, moving to lightweight resources to manage:
+- SDK tools/sdk seed install
+- SDK components
+- NDK installs
+- Android emulators
+
+NDK installs are entirely separate for the others. You do not need the SDK to install an NDK and vice versa.
+
+Emulators rely that the SDK is installed as are the components necessary for the emulator (system-images, platforms).
+
+SDK components are the same items of the SKD you install via the Android STudio UI.
+
+The SDK resource actually refers to the SDK tools zip used to give you the core tooling/binaries of the SDK. It is required to have this first to manage SDK components (since they're managed via the sdkmanager binary included in the SDK's `tools/bin` folder.)
+
 v0.2.0 (2015-10-17)
 -------------------
 
@@ -34,4 +51,3 @@ v0.0.0 (2013-08-08)
 -------------------
 
 *First Draft*
-
