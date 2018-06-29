@@ -48,7 +48,7 @@ end
 
 action :install do
   android_home = ::File.join(new_resource.path || node['ark']['prefix_home'], 'android-sdk')
-  checksum = new_resource.checksum || CHECKSUMS[new_resource.version.to_sym][platform]
+  checksum = new_resource.checksum || CHECKSUMS[new_resource.version][platform]
   url = new_resource.url || "https://dl.google.com/android/repository/sdk-tools-#{platform}-#{new_resource.version}.zip"
 
   ark 'android-sdk' do
