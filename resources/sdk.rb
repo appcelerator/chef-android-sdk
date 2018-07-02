@@ -78,7 +78,7 @@ action :install do
 
   # TODO: find a way to handle 'chmod stuff' below with own chef resource (idempotence stuff...)
   execute 'Grant all users to read android files' do
-    command "chmod -R a+r #{android_home}/*"
+    command "chmod -R a+r #{android_home}/"
     user new_resource.owner
     group new_resource.group
   end

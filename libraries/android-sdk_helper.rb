@@ -8,21 +8,28 @@ class Chef
 
     module Component
       # Determine if a specific component is installed
-      def self.installed?(node, component_name)
-        installed(node).include?(component_name)
+      def self.installed?(android_sdk_dir, component_name)
+        # installed(android_sdk_dir).include?(component_name)
+        Dir.exist?(path(android_sdk_dir, component_name))
+      end
+
+      # Returns the expected directory for a component by it's name
+      def self.path(android_sdk_dir, component_name)
+        "#{android_sdk_dir}/#{component_name.split(';').join('/')}"
       end
 
       # Gather up the listing of components we have installed!
-      def self.installed(node)
-        android_home = ::Chef::AndroidSDK.home(node)
+      def self.installed(android_home)
         return [] unless Dir.exist?(android_home)
         installed = []
         installed << 'tools' if Dir.exist?("#{android_home}/tools")
         installed << 'platform-tools' if Dir.exist?("#{android_home}/platform-tools")
         installed << 'docs' if Dir.exist?("#{android_home}/docs")
+        installed << 'emulator' if Dir.exist?("#{android_home}/emulator")
 
         Dir["#{android_home}/build-tools/*/"].each { |d| installed << "build-tools;#{File.basename(d)}" } if Dir.exist?("#{android_home}/build-tools")
         Dir["#{android_home}/platforms/*/"].each { |d| installed << "platforms;#{File.basename(d)}" } if Dir.exist?("#{android_home}/platforms")
+        Dir["#{android_home}/add-ons/*/"].each { |d| installed << "addons;#{File.basename(d)}" } if Dir.exist?("#{android_home}/add-ons")
 
         if Dir.exist?("#{android_home}/extras")
           Dir["#{android_home}/extras/*/"].each do |d|
@@ -32,8 +39,6 @@ class Chef
             end
           end
         end
-
-        Dir["#{android_home}/add-ons/*/"].each { |d| installed << "addons;#{File.basename(d)}" } if Dir.exist?("#{android_home}/add-ons")
 
         if Dir.exist?("#{android_home}/system-images")
           Dir["#{android_home}/system-images/*/"].each do |api_level_dir|
@@ -57,13 +62,18 @@ class Chef
 
     module DSL
       # @see Chef::AndroidSDK::Component#installed?
-      def component_installed?(component_name)
-        Chef::AndroidSDK::Component.installed?(node, component_name)
+      def component_installed?(android_sdk_dir, component_name)
+        Chef::AndroidSDK::Component.installed?(android_sdk_dir, component_name)
+      end
+
+      # @see Chef::AndroidSDK::Component#path
+      def component_path(android_sdk_dir, component_name)
+        Chef::AndroidSDK::Component.path(android_sdk_dir, component_name)
       end
 
       # @see Chef::AndroidSDK::Component#installed
-      def installed_components
-        Chef::AndroidSDK::Component.installed(node)
+      def installed_components(android_sdk_dir)
+        Chef::AndroidSDK::Component.installed(android_sdk_dir)
       end
 
       # @see Chef::AndroidSDK#home

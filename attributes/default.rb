@@ -37,6 +37,7 @@ default['android-sdk']['download_url']              = "https://dl.google.com/and
 default['android-sdk']['components']                = %w( platform-tools
                                                           build-tools;26.0.1
                                                           platforms;android-23
+                                                          emulator
                                                           system-images;android-23;default;armeabi-v7a
                                                           extras;google;google_play_services
                                                           extras;google;m2repository

@@ -62,5 +62,6 @@ suites:
       components:
         - platform-tools
         - build-tools;26.0.1
+        - emulator
         - platforms;android-23
         - system-images;android-23;google_apis;armeabi-v7a
