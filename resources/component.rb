@@ -23,12 +23,9 @@ action :install do
     not_if { node['platform'] == 'mac_os_x' }
   end
 
-  android_bin = ::File.join(new_resource.sdk, 'tools', 'bin', 'sdkmanager')
-
   script "Install Android SDK component #{new_resource.name}" do
     interpreter 'expect'
-    user new_resource.user
-    group new_resource.group
+    # FIXME: Specifying the user/group here causes the temporary expect script file to not be executable/permissions issues on macOS!
     environment lazy {
       {
         'USER' => new_resource.user,
@@ -39,7 +36,7 @@ action :install do
     }
     # TODO: use --force or not?
     code <<-EOF
-      spawn #{android_bin} "#{new_resource.name}"
+      spawn #{new_resource.sdk}/tools/bin/sdkmanager "#{new_resource.name}"
       set timeout #{new_resource.timeout}
       expect {
         "Accept? (y/N):" {
@@ -56,7 +53,7 @@ action :install do
 
   # FIXME: Use helper/library method to fix just the specific folder? It wouldn't "fix" parent dirs that may have gotten created with bad ownership too...
   execute "Fix ownership of android SDK component #{new_resource.name}" do
-    command lazy { "chown -R #{new_resource.user} #{new_resource.sdk}" }
+    command "chown -R #{new_resource.user} #{new_resource.sdk}"
     action :nothing
   end
 end

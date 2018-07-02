@@ -61,7 +61,7 @@ action :install do
 
   # Launch emulator for first time
   execute "launch emulator #{new_resource.name}" do
-    command "#{new_resource.sdk}/tools/emulator -avd '#{new_resource.name}' &"
+    command "#{emulator_binary(new_resource.sdk)} -avd '#{new_resource.name}' &"
     user new_resource.user
     group new_resource.group
     # Due to http://tickets.opscode.com/browse/CHEF-2288

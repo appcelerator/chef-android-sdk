@@ -80,6 +80,10 @@ class Chef
       def android_home
         Chef::AndroidSDK.home(node)
       end
+
+      def emulator_binary(android_sdk_dir)
+        ["#{android_sdk_dir}/emulator/emulator", "#{android_sdk_dir}/tools/emulator"].detect { |d| ::File.exist?(d) }
+      end
     end
   end
 end
