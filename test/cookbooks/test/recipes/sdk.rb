@@ -11,7 +11,7 @@ end
 
 apt_update 'update'
 
-android_sdk 'whatever' do
+android_sdk '/usr/local/android-sdk' do
   owner 'random'
   group 'staff'
 end
