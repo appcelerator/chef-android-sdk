@@ -9,7 +9,7 @@ default_action :install
 property :timeout, Integer, default: 1800
 property :sdk, String, default: ::File.join(node['ark']['prefix_home'], 'android-sdk')
 property :user, String, default: lazy { |r| Etc.getpwuid(::File.stat(r.sdk).uid).name }
-property :group, String, default: lazy { |r| ::File.stat(r.sdk).gid }
+property :group, [String, Integer], default: lazy { |r| ::File.stat(r.sdk).gid }
 
 def initialize(*args)
   super

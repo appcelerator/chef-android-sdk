@@ -35,7 +35,7 @@ end
 
 property :version, String, default: '3859397'
 property :owner, String, default: owner
-property :group, String, default: group
+property :group, [String, Integer], default: group
 property :checksum, String
 property :url, String
 property :path, String # parent path to install?

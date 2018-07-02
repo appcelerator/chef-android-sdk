@@ -19,7 +19,7 @@ property :sdcard, String, default: '512M'
 property :launch, [true, false], default: false # Do we launch the emulator after creation?
 # User values
 property :user, String, required: true
-property :group, String, required: true
+property :group, [String, Integer], required: true
 property :home, String, default: lazy { |r| ::Dir.home(r.user) }
 
 # Path to Android SDK to use to manage avd (avdmanager in tool)

@@ -8,7 +8,7 @@ default_action :install
 
 property :version, String, name_property: true
 property :owner, String, required: true
-property :group, String, required: true
+property :group, [String, Integer], required: true
 
 # TODO: Add checksums for other r13b, r15-beta1?
 CHECKSUMS = {
