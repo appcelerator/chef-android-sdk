@@ -38,7 +38,7 @@ platforms:
       role: guest
     java:
       jdk_version: 8
-    android-sdk:
+    android:
       java_from_system: false
 
 suites:
@@ -46,18 +46,22 @@ suites:
 - name: ndk
   run_list:
     - recipe[test::ndk]
+  attributes:
+    android:
+      set_environment_variables: true
 
 - name: emulator
   run_list:
     - recipe[test::emulator]
+  attributes:
+    android:
+      set_environment_variables: true
 
 - name: default # covers sdk and component resources
   run_list:
     - recipe[android]
   attributes:
-    android-sdk:
-      license:
-        default_answer: y
+    android:
       set_environment_variables: true
       components:
         - platform-tools

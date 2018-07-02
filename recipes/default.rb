@@ -46,21 +46,20 @@ if node['platform'] == 'ubuntu'
   end
 end
 
-android_sdk 'android-sdk' do
-  checksum node['android-sdk']['checksum']
-  version node['android-sdk']['version']
-  owner node['android-sdk']['owner']
-  group node['android-sdk']['group']
-  url node['android-sdk']['download_url']
-  path node['android-sdk']['setup_root']
+android_sdk node['android']['path'] do
+  checksum node['android']['checksum']
+  version node['android']['version']
+  owner node['android']['owner']
+  group node['android']['group']
+  url node['android']['download_url']
 end
 
 #
 # Install, Update (a.k.a. re-install) Android components
 #
-node['android-sdk']['components'].each do |sdk_component|
+node['android']['components'].each do |sdk_component|
   android_component sdk_component do
-    sdk ::File.join(node['android-sdk']['setup_root'] || node['ark']['prefix_home'], 'android-sdk')
+    sdk node['android']['path']
   end
 end
 
@@ -69,18 +68,18 @@ end
 # avoid unwanted removal when updating android sdk components later.
 #
 %w(android-accept-licenses android-wait-for-emulator).each do |android_helper_script|
-  cookbook_file File.join(node['android-sdk']['scripts']['path'], android_helper_script) do
+  cookbook_file File.join(node['android']['scripts']['path'], android_helper_script) do
     source android_helper_script
-    owner node['android-sdk']['scripts']['owner']
-    group node['android-sdk']['scripts']['group']
+    owner node['android']['scripts']['owner']
+    group node['android']['scripts']['group']
     mode 0755
   end
 end
 %w(android-update-sdk).each do |android_helper_script|
-  template File.join(node['android-sdk']['scripts']['path'], android_helper_script) do
+  template File.join(node['android']['scripts']['path'], android_helper_script) do
     source "#{android_helper_script}.erb"
-    owner node['android-sdk']['scripts']['owner']
-    group node['android-sdk']['scripts']['group']
+    owner node['android']['scripts']['owner']
+    group node['android']['scripts']['group']
     mode 0755
   end
 end
@@ -88,4 +87,4 @@ end
 #
 # Install Maven Android SDK Deployer toolkit to populate local Maven repository
 #
-include_recipe('android::maven_rescue') if node['android-sdk']['maven_rescue']
+include_recipe('android::maven_rescue') if node['android']['maven_rescue']

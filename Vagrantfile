@@ -28,13 +28,13 @@ Vagrant.configure('2') do |config|
     chef.add_recipe 'git'
     chef.add_recipe 'maven'
 
-    chef.add_recipe 'android-sdk'
+    chef.add_recipe 'android'
 
     chef.json = {
       'java' => {
         'jdk_version' => '7',
       },
-      'android-sdk' => {
+      'android' => {
         'owner' => 'vagrant',
         'group' => 'vagrant',
         'components' => ['android-20', 'android-19'],

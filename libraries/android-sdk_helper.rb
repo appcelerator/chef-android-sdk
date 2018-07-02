@@ -2,8 +2,8 @@ class Chef
   module AndroidSDK
     # Find the ANDROID_HOME we're pointing to on this node
     def self.home(node)
-      setup_root = node['android-sdk']['setup_root'].to_s.empty? ? node['ark']['prefix_home'] : node['android-sdk']['setup_root']
-      File.join(setup_root, node['android-sdk']['name']) # returned
+      setup_root = node['android']['setup_root'].to_s.empty? ? node['ark']['prefix_home'] : node['android']['setup_root']
+      File.join(setup_root, node['android']['name']) # returned
     end
 
     module Component

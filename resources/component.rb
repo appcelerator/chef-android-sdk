@@ -14,7 +14,7 @@ property :group, [String, Integer], default: lazy { |r| ::File.stat(r.sdk).gid }
 def initialize(*args)
   super
 
-  @run_context.include_recipe 'java' unless node['android-sdk']['java_from_system']
+  @run_context.include_recipe 'java' unless node['android']['java_from_system']
 end
 
 action :install do
@@ -48,7 +48,7 @@ action :install do
     EOF
     notifies :run, "execute[Fix ownership of android SDK component #{new_resource.name}]", :immediate
     not_if { component_installed?(new_resource.sdk, new_resource.name) }
-    # TODO: Remove components that are installed that we didn't want! Loop through AndroidSDK.installed_components and remove any not in node['android-sdk']['components']
+    # TODO: Remove components that are installed that we didn't want! Loop through AndroidSDK.installed_components and remove any not in node['android']['components']
   end
 
   # FIXME: Use helper/library method to fix just the specific folder? It wouldn't "fix" parent dirs that may have gotten created with bad ownership too...

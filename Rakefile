@@ -86,7 +86,7 @@ end
 private
 
 def cookbook_name
-  'android-sdk'
+  'android'
 end
 
 def sandbox_root

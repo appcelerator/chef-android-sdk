@@ -80,7 +80,7 @@ action :install do
   # Wait until emulator booted before continuing
   # FIXME: This appears to hang!
   # execute 'wait for emulator' do
-  #   command "#{node['android-sdk']['scripts']['path']}/android-wait-for-emulator"
+  #   command "#{node['android']['scripts']['path']}/android-wait-for-emulator"
   #   action :nothing
   # end
 end

@@ -36,9 +36,9 @@ end
 property :version, String, default: '3859397'
 property :owner, String, default: owner
 property :group, [String, Integer], default: group
-property :checksum, String
-property :url, String
-property :path, String # parent path to install?
+property :checksum, String, default: lazy { |r| CHECKSUMS[r.version][platform] }
+property :url, String, default: lazy { |r| "https://dl.google.com/android/repository/sdk-tools-#{platform}-#{r.version}.zip" }
+property :path, String, name_property: true
 
 def initialize(*args)
   super
@@ -47,28 +47,20 @@ def initialize(*args)
 end
 
 action :install do
-  android_home = ::File.join(new_resource.path || node['ark']['prefix_home'], 'android-sdk')
-  checksum = new_resource.checksum || CHECKSUMS[new_resource.version][platform]
-  url = new_resource.url || "https://dl.google.com/android/repository/sdk-tools-#{platform}-#{new_resource.version}.zip"
-
-  ark 'android-sdk' do
-    url url
-    path new_resource.path if new_resource.path
-    checksum checksum
+  ark ::File.basename(new_resource.path) do
+    url new_resource.url
+    path ::File.dirname(new_resource.path)
+    checksum new_resource.checksum
     version new_resource.version
-    prefix_root new_resource.path if new_resource.path
-    prefix_home new_resource.path if new_resource.path
     owner new_resource.owner
     group new_resource.group
     action :put
     strip_components 0
   end
 
-  #
   # Fix non-friendly 0750 permissions in order to make android-sdk available to all system users
-  #
   %w(add-ons platforms tools).each do |subfolder|
-    directory ::File.join(android_home, subfolder) do
+    directory ::File.join(new_resource.path, subfolder) do
       mode 0755
       user new_resource.owner
       group new_resource.group
@@ -78,12 +70,12 @@ action :install do
 
   # TODO: find a way to handle 'chmod stuff' below with own chef resource (idempotence stuff...)
   execute 'Grant all users to read android files' do
-    command "chmod -R a+r #{android_home}/"
+    command "chmod -R a+r #{new_resource.path}/"
     user new_resource.owner
     group new_resource.group
   end
   execute 'Grant all users to execute android tools' do
-    command "chmod -R a+X #{::File.join(android_home, 'tools')}/*"
+    command "chmod -R a+X #{::File.join(new_resource.path, 'tools')}/*"
     user new_resource.owner
     group new_resource.group
   end
@@ -93,6 +85,7 @@ action :install do
     owner 'root'
     group 'wheel'
     only_if { platform?('mac_os_x') }
+    only_if { node['android']['set_environment_variables'] }
   end
 
   # Configure environment variables (ANDROID_HOME and PATH)
@@ -103,8 +96,10 @@ action :install do
     cookbook 'android'
     variables lazy {
       {
-        android_home: android_home,
+        android_home: new_resource.path,
       }
     }
+    not_if { platform?('windows') }
+    only_if { node['android']['set_environment_variables'] }
   end
 end
