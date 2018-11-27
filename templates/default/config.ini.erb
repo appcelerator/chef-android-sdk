@@ -5,16 +5,16 @@ hw.cpu.ncore = 2
 hw.keyboard.lid=no
 hw.lcd.density=320
 hw.mainKeys=no
-hw.ramSize=1024
+hw.ramSize=<%= @ram %>
 image.sysdir.1=system-images/<%= @platform %>/google_apis/<%= @abi %>/
 skin.name=<%= @skin.downcase %>
 skin.path=platforms/<%= @platform %>/skins/<%= @skin %>
-tag.display=Google apis
-tag.id=google_apis
+tag.display=<%= @tag == 'google_apis' ? 'Google apis' : @tag %>
+tag.id=<%= @tag %>
 hw.gpu.enabled=yes
 hw.sdCard=yes
-sdcard.size=512M
-vm.heapSize=128
+sdcard.size=<%= @sdcard %>
+vm.heapSize=<%= @heap %>
 hw.accelerometer=yes
 hw.audioInput=yes
 hw.battery=yes
@@ -24,6 +24,6 @@ hw.gps=yes
 hw.sensors.orientation=yes
 hw.sensors.proximity=no
 hw.trackBall=no
-disk.dataPartition.size=1280M
+disk.dataPartition.size=<%= @disk_size %>
 hw.gpu.mode = host
 # hw.gpu.blacklisted = no

@@ -16,6 +16,9 @@ property :skin, String, required: true
 property :tag, String, default: 'google_apis'
 property :abi, String, required: true
 property :sdcard, String, default: '512M'
+property :heap, Integer, default: 128
+property :ram, Integer, default: 1024
+property :disk_size, String, default: '1280M'
 property :launch, [true, false], default: false # Do we launch the emulator after creation?
 # User values
 property :user, String, required: true
@@ -50,7 +53,12 @@ action :install do
     variables lazy {
       {
         abi: new_resource.abi,
+        sdcard: new_resource.sdcard,
+        ram: new_resource.ram,
+        tag: new_resource.tag,
+        heap: new_resource.heap,
         skin: new_resource.skin,
+        disk_size: new_resource.disk_size,
         platform: new_resource.platform,
         avd_dir: "#{new_resource.home}/.android/avd/#{new_resource.name}.avd",
       }
