@@ -6,10 +6,10 @@ hw.keyboard.lid=no
 hw.lcd.density=320
 hw.mainKeys=no
 hw.ramSize=<%= @ram %>
-image.sysdir.1=system-images/<%= @platform %>/google_apis/<%= @abi %>/
+image.sysdir.1=system-images/<%= @platform %>/<%= @tag %>/<%= @abi %>/
 skin.name=<%= @skin.downcase %>
 skin.path=platforms/<%= @platform %>/skins/<%= @skin %>
-tag.display=<%= @tag == 'google_apis' ? 'Google apis' : @tag %>
+tag.display=<%= @tag == 'google_apis' ? 'Google apis' : (@tag == 'google_apis_playstore' ? 'Google Play' : @tag) %>
 tag.id=<%= @tag %>
 hw.gpu.enabled=yes
 hw.sdCard=yes
