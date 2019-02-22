@@ -3,7 +3,7 @@ maintainer 'Christopher Williams'
 maintainer_email 'cwilliams@axway.com'
 license 'Apache-2.0'
 description 'Manages Google Android SDK/NDK/emulators'
-version '2.0.2'
+version '2.0.3'
 issues_url 'https://github.com/appcelerator/chef-android-sdk/issues' if respond_to?(:issues_url)
 source_url 'https://github.com/appcelerator/chef-android-sdk/' if respond_to?(:source_url)
 chef_version '>= 12.5' if respond_to?(:chef_version)
