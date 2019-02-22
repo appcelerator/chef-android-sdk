@@ -74,6 +74,7 @@ action :install do
     user new_resource.owner
     group new_resource.group
   end
+
   execute 'Grant all users to execute android tools' do
     command "chmod -R a+X #{::File.join(new_resource.path, 'tools')}/*"
     user new_resource.owner
@@ -101,5 +102,13 @@ action :install do
     }
     not_if { platform?('windows') }
     only_if { node['android']['set_environment_variables'] }
+  end
+end
+
+action :update do
+  execute 'Install updates to all outdated components' do
+    command "#{::File.join(new_resource.path, 'tools')}/bin/sdkmanager --update"
+    user new_resource.owner
+    group new_resource.group
   end
 end
