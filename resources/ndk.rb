@@ -10,7 +10,7 @@ property :version, String, name_property: true
 property :owner, String, required: true
 property :group, [String, Integer], required: true
 
-# TODO: Add checksums for other r13b, r15-beta1?
+# TODO: Add checksums for others, like: r17c, r18b?
 CHECKSUMS = {
   r10e: {
     'darwin-86_64'   => 'e205278fba12188c02037bfe3088eba34d8b5d96b1e71c8405f9e6e155a3bce4',
@@ -47,6 +47,12 @@ CHECKSUMS = {
     'linux-x86_64'   => 'ba3d813b47de75bc32a2f3de087f72599c6cb36fdc9686b96f517f5492ff43ca',
     'windows-x86'    => '8892584c86da97d3bd107389291a4e4fe2d601762621923084673dd0fb0afb73',
     'windows-x86_64' => '7e6d03087e2faa46231554887af4a6bc01b5ca37c6e0e7ca7161b86c51eed4b7',
+  },
+  r19c: {
+    'darwin-x86_64'  => '4eeaddcb4bb58b2a10a9712f9b8e84ea83889786a88923879e973058f59281cf',
+    'linux-x86_64'   => '4c62514ec9c2309315fd84da6d52465651cdb68605058f231f1e480fcf2692e1',
+    'windows-x86'    => '800c3c6ba616ddf25097d43566d5d574f9e6c0a10538bf60dd5be0e024f732cd',
+    'windows-x86_64' => '0faf708c9837a921cae5262745f5857162614bb9689a0d188780d12ea93a2c18',
   },
 }.freeze
 
