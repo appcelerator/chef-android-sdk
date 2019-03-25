@@ -60,7 +60,7 @@ action :install do
   ark "android-ndk-#{new_resource.version}" do
     version  new_resource.version
     url      "https://dl.google.com/android/repository/android-ndk-#{new_resource.version}-#{node['os']}-#{node['kernel']['machine']}.zip"
-    checksum CHECKSUMS[new_resource.version.to_sym]["#{node['os']}-#{node['kernel']['machine']}"]
+    checksum CHECKSUMS[new_resource.version.to_sym] && CHECKSUMS[new_resource.version.to_sym]["#{node['os']}-#{node['kernel']['machine']}"]
     action   :put # don't do symlinking
     owner    new_resource.owner
     group    new_resource.group
