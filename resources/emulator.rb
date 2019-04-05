@@ -76,7 +76,7 @@ action :install do
     # Need to specify HOME explicitly for emulator launch to work
     environment lazy {
       {
-        'HOME' => home,
+        'HOME' => new_resource.home,
         'USER' => new_resource.user,
       }
     }
