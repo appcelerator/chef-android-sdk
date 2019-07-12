@@ -3,7 +3,6 @@
 .kitchen/
 .vagrant*/
 Gemfile.lock
-Berksfile.lock
 .kitchen.local.yml
 .ruby-version
 .ruby-gemset
