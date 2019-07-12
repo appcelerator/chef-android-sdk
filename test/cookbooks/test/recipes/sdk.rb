@@ -12,7 +12,7 @@ end
 directory '/Users/random' do
   owner 'random'
   group 'staff'
-  only_if platform?('mac_os_x')
+  only_if { platform?('mac_os_x') }
 end
 
 android_sdk '/usr/local/android-sdk' do
