@@ -9,6 +9,12 @@ user 'random' do
   password    '4bb7997f6e499a97f8e3bae46a387386e15de774fb136579ea89c220679d8232615ce87511b583dd25f6608fa818c97138a2d4e41795700619a5c33ebb0f806b3756235723a0454a2a04eb9746b30150adace272e0bbe8670cc89edd52def8e004fce3e0e19e8d0d438efa8b14599f499313cd31829576dcd3e144126370726b' if platform?('mac_os_x')
 end
 
+directory '/Users/random' do
+  owner 'random'
+  group 'staff'
+  only_if platform?('mac_os_x')
+end
+
 android_sdk '/usr/local/android-sdk' do
   owner 'random'
   group 'staff'
