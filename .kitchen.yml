@@ -32,14 +32,18 @@ platforms:
   driver:
     box: gobadiah/macos-sierra
     boot_timeout: 1200
+    run_list:
+      - recipe[homebrew]
+      - recipe[homebrew:install_casks]
   attributes:
+    homebrew:
+      casks:
+        - homebrew/cask-versions/adoptopenjdk8
     virtualization:
       system: vbox
       role: guest
-    java:
-      jdk_version: 8
     android:
-      java_from_system: false
+      java_from_system: true
 
 suites:
 

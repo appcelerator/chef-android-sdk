@@ -3,6 +3,7 @@ DEPENDENCIES
     path: .
     metadata: true
   apt
+  homebrew
   test
     path: test/cookbooks/test
 
