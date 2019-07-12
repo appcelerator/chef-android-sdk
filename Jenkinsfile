@@ -1,4 +1,4 @@
 #! groovy
 library 'pipeline-library'
 
-buildChefCookbook('android')
+buildChefCookbook(name: 'android', deployAll: true, exclude: 'test')
