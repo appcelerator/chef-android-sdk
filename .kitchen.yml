@@ -7,8 +7,9 @@ driver:
 provisioner:
   name: chef_zero
   product_name: chef
-  product_version: 13.4.19
+  product_version: 14.7.17
   install_strategy: always # Install exact version we want, don't skip if there's any sort of install in the VM
+  deprecations_as_errors: true
 
 verifier:
   name: inspec
@@ -25,10 +26,7 @@ platforms:
       - recipe[apt]
   attributes:
     java:
-      install_flavor: oracle
       jdk_version: 8
-      oracle:
-        accept_oracle_download_terms: true
 
 - name: macos-sierra
   driver:
