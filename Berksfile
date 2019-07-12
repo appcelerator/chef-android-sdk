@@ -2,14 +2,8 @@ source 'https://supermarket.chef.io'
 
 metadata
 
-group :integration do
+group :test do
   cookbook 'apt'
-  cookbook 'yum'
-  cookbook 'java'
-
-  # TODO: better understand Berkshelf, and how to DRY .kitchen.yml and Berksfile...
-  cookbook 'maven'
-  cookbook 'git'
 
   cookbook 'test', path: './test/cookbooks/test'
 end
