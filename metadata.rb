@@ -8,9 +8,8 @@ issues_url 'https://github.com/appcelerator/chef-android-sdk/issues' if respond_
 source_url 'https://github.com/appcelerator/chef-android-sdk/' if respond_to?(:source_url)
 chef_version '>= 12.5' if respond_to?(:chef_version)
 
-%w(java ark).each do |dep|
-  depends dep
-end
+depends 'java'
+depends 'ark'
 
 # TODO: maybe put maven into depends section
 # recommends 'maven' # Maven 3.1.1+ is required by android-sdk::maven-rescue recipe
