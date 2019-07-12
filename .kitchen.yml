@@ -57,6 +57,7 @@ suites:
 
 - name: default # covers sdk and component resources
   run_list:
+    - recipe[test::_base]
     - recipe[android]
   attributes:
     android:
