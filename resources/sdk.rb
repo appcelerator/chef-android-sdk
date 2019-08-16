@@ -33,7 +33,7 @@ elsif node['platform'] == 'windows'
   platform = 'windows'
 end
 
-property :version, String, default: '3859397'
+property :version, String, default: '4333796'
 property :owner, String, default: owner
 property :group, [String, Integer], default: group
 property :checksum, String, default: lazy { |r| CHECKSUMS[r.version][platform] }

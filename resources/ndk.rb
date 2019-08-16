@@ -54,6 +54,12 @@ CHECKSUMS = {
     'windows-x86'    => '800c3c6ba616ddf25097d43566d5d574f9e6c0a10538bf60dd5be0e024f732cd',
     'windows-x86_64' => '0faf708c9837a921cae5262745f5857162614bb9689a0d188780d12ea93a2c18',
   },
+  r20: {
+    'darwin-x86_64'  => '2ec06c4576c6ad50a727f0a5fbd0f67563aa6e8b348cff904b029622a470f2f1',
+    'linux-x86_64'   => '57435158f109162f41f2f43d5563d2164e4d5d0364783a9a6fab3ef12cb06ce0',
+    'windows-x86'    => '7541bacd22f5757b9947314ee71111e18fc7db852ac67b23b7dbace229b941cf',
+    'windows-x86_64' => '315cdfdb971ee85a71e267da2cc7d6667ec722c3649aedc45cd42a97b2e8b056',
+  },
 }.freeze
 
 def initialize(*args)

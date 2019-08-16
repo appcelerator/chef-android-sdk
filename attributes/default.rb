@@ -1,16 +1,16 @@
 # default file/URL/checksum for linux
 platform = 'linux'
-checksum = '444e22ce8ca0f67353bda4b85175ed3731cae3ffa695ca18119cbacef1c1bea0' # sdk tools 3859397 linux checksum
+checksum = '92ffee5a1d98d856634e8b71132e8a95d96c83a63fde1099be3d86df3106def9' # sdk tools 4333796 linux checksum
 group = 'root'
 
 # Overrides for Mac OS X
 if node['platform'] == 'mac_os_x'
   platform = 'darwin'
-  checksum = '4a81754a760fce88cba74d69c364b05b31c53d57b26f9f82355c61d5fe4b9df9' # sdk tools 3859397 mac checksum
+  checksum = 'ecb29358bc0f13d7c2fa0f9290135a5b608e38434aad9bf7067d0252c160853e' # sdk tools 4333796 mac checksum
   group = 'wheel'
 elsif node['platform'] == 'windows'
   platform = 'windows'
-  checksum = '7f6037d3a7d6789b4fdc06ee7af041e071e9860c51f66f7a4eb5913df9871fd2' # sdk tools 3859397 windows checksum
+  checksum = '7e81d69c303e47a4f0e748a6352d85cd0c8fd90a5a95ae4e076b5e5f960d3c7a' # sdk tools 4333796 windows checksum
 end
 
 default['android']['path']                      = '/usr/local/android-sdk'
@@ -18,7 +18,7 @@ default['android']['owner']                     = 'root'
 default['android']['group']                     = group
 default['android']['set_environment_variables'] = true
 
-default['android']['version']                   = '3859397'
+default['android']['version']                   = '4333796'
 default['android']['checksum']                  = checksum
 default['android']['download_url']              = "https://dl.google.com/android/repository/sdk-tools-#{platform}-#{node['android']['version']}.zip"
 
