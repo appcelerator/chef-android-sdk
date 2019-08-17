@@ -8,7 +8,7 @@ DEPENDENCIES
     path: test/cookbooks/test
 
 GRAPH
-  android (2.0.7)
+  android (2.1.0)
     ark (>= 0.0.0)
     java (>= 0.0.0)
   apt (7.1.1)
