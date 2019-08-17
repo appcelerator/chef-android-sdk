@@ -1,6 +1,4 @@
-user 'random' do
-  group 'staff'
-end
+include_recipe 'test::_user'
 
 apt_update 'update'
 
