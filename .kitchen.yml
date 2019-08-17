@@ -13,8 +13,9 @@ provisioner:
 
 verifier:
   name: inspec
-  format: junit
-  output: ./%{suite}-%{platform}-inspec.xml
+  reporter:
+    - cli
+    - junit:%{suite}-%{platform}-inspec.xml
 
 platforms:
 
