@@ -67,6 +67,16 @@ action :install do
     notifies :run, "execute[launch emulator #{new_resource.name}]", :immediate
   end
 
+  # Force it to save snapshots on exit (and avoid prompting when emulator exits!)
+  template "#{new_resource.home}/.android/avd/#{new_resource.name}.avd/quickBootChoice.ini" do
+    cookbook 'android'
+    variables lazy {
+      {
+        saveOnExit: true,
+      }
+    }
+  end
+
   # Launch emulator for first time
   execute "launch emulator #{new_resource.name}" do
     command "#{emulator_binary(new_resource.sdk)} -avd '#{new_resource.name}' -wipe-data -no-snapshot-load &"
