@@ -106,9 +106,27 @@ action :install do
 end
 
 action :update do
-  execute 'Install updates to all outdated components' do
-    command "#{::File.join(new_resource.path, 'tools')}/bin/sdkmanager --update"
-    user new_resource.owner
-    group new_resource.group
+  script 'Install updates to all outdated components' do
+    interpreter 'expect'
+    # FIXME: Specifying the user/group here causes the temporary expect script file to not be executable/permissions issues on macOS!
+    environment lazy {
+      {
+        'USER' => new_resource.owner,
+        'HOME' => ::Dir.home(new_resource.owner),
+        'ANDROID_HOME' => new_resource.path,
+        'PATH' => "#{::File.join(new_resource.path, 'tools')}:#{ENV['PATH']}",
+      }
+    }
+    code <<-EOF
+      spawn #{new_resource.sdk}/tools/bin/sdkmanager --update
+      set timeout #{new_resource.timeout}
+      expect {
+        "Accept? (y/N):" {
+          exp_send "y\r"
+          exp_continue
+        }
+        eof
+      }
+    EOF
   end
 end
