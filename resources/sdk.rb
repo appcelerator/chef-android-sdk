@@ -39,6 +39,7 @@ property :group, [String, Integer], default: group
 property :checksum, String, default: lazy { |r| CHECKSUMS[r.version][platform] }
 property :url, String, default: lazy { |r| "https://dl.google.com/android/repository/sdk-tools-#{platform}-#{r.version}.zip" }
 property :path, String, name_property: true
+property :timeout, Integer, default: 1800
 
 def initialize(*args)
   super
@@ -118,7 +119,7 @@ action :update do
       }
     }
     code <<-EOF
-      spawn #{new_resource.sdk}/tools/bin/sdkmanager --update
+      spawn #{new_resource.path}/tools/bin/sdkmanager --update
       set timeout #{new_resource.timeout}
       expect {
         "Accept? (y/N):" {
