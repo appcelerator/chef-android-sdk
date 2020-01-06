@@ -7,7 +7,7 @@ resource_name :android_component
 default_action :install
 
 property :timeout, Integer, default: 1800
-property :sdk, String, default: ::File.join(node['ark']['prefix_home'], 'android-sdk')
+property :sdk, String, default: lazy { ::File.join(node['ark']['prefix_home'], 'android-sdk') }
 property :user, String, default: lazy { |r| Etc.getpwuid(::File.stat(r.sdk).uid).name }
 property :group, [String, Integer], default: lazy { |r| ::File.stat(r.sdk).gid }
 

@@ -26,7 +26,7 @@ property :group, [String, Integer], required: true
 property :home, String, default: lazy { |r| ::Dir.home(r.user) }
 
 # Path to Android SDK to use to manage avd (avdmanager in tool)
-property :sdk, String, default: ::File.join(node['ark']['prefix_home'], 'android-sdk')
+property :sdk, String, default: lazy { ::File.join(node['ark']['prefix_home'], 'android-sdk') }
 
 action :install do
   # Create working directory for AVD
