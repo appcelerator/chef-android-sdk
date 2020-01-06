@@ -62,9 +62,9 @@ action :install do
   # Fix non-friendly 0750 permissions in order to make android-sdk available to all system users
   %w(add-ons platforms tools).each do |subfolder|
     directory ::File.join(new_resource.path, subfolder) do
-      mode 0755
-      user new_resource.owner
-      group new_resource.group
+      mode      0755
+      user      new_resource.owner
+      group     new_resource.group
       recursive true
     end
   end
@@ -72,37 +72,30 @@ action :install do
   # TODO: find a way to handle 'chmod stuff' below with own chef resource (idempotence stuff...)
   execute 'Grant all users to read android files' do
     command "chmod -R a+r #{new_resource.path}/"
-    user new_resource.owner
-    group new_resource.group
+    user    new_resource.owner
+    group   new_resource.group
   end
 
   execute 'Grant all users to execute android tools' do
     command "chmod -R a+X #{::File.join(new_resource.path, 'tools')}/*"
-    user new_resource.owner
-    group new_resource.group
+    user    new_resource.owner
+    group   new_resource.group
   end
 
-  # Make /etc/profile.d so the cookbooks that stick env vars in there won't fail
-  directory '/etc/profile.d' do
-    owner 'root'
-    group 'wheel'
-    only_if { platform?('mac_os_x') }
+  # Set ANDROID_HOME to point to this SDK install
+  env "ANDROID_HOME" do
+    value   "#{new_resource.path}/"
+    not_if  { platform?('windows') }
     only_if { node['android']['set_environment_variables'] }
   end
 
-  # Configure environment variables (ANDROID_HOME and PATH)
-  template '/etc/profile.d/android-sdk.sh' do
-    mode 0644
-    owner new_resource.owner
-    group new_resource.group
-    cookbook 'android'
-    variables lazy {
-      {
-        android_home: new_resource.path,
-      }
-    }
-    not_if { platform?('windows') }
-    only_if { node['android']['set_environment_variables'] }
+  # Prepend typical android SDK binary paths to PATH (note that the ANDROID_HOME value is separate)
+  env "ANDROID_HOME_PATH" do
+    key_name 'PATH'
+    value    [ '${ANDROID_HOME}tools/bin', '${ANDROID_HOME}tools', '${ANDROID_HOME}platform-tools' ]
+    prepend  false
+    not_if   { platform?('windows') }
+    only_if  { node['android']['set_environment_variables'] }
   end
 end
 
