@@ -84,17 +84,8 @@ action :install do
     not_if { ::File.exist?("/etc/profile.d/android-ndk-#{new_resource.version}.sh") }
   end
 
-  # Make /etc/profile.d so the cookbooks that stick env vars in there won't fail
-  directory '/etc/profile.d' do
-    owner 'root'
-    group 'wheel'
-    only_if { platform?('mac_os_x') }
-    only_if { node['android']['set_environment_variables'] }
-  end
-
-  # Set up ANDROID_NDK_XXX env var
-  file "/etc/profile.d/android-ndk-#{new_resource.version}.sh" do
-    content "export ANDROID_NDK_#{new_resource.version.upcase}=#{node['ark']['prefix_root']}/android-ndk-#{new_resource.version}"
+  env "ANDROID_NDK_#{new_resource.version.upcase}" do
+    value "#{node['ark']['prefix_root']}/android-ndk-#{new_resource.version}"
     not_if { platform?('windows') }
     only_if { node['android']['set_environment_variables'] }
   end
@@ -106,8 +97,10 @@ action :uninstall do
     action    :delete
   end
 
-  file "/etc/profile.d/android-ndk-#{new_resource.version}.sh" do
-    action :delete
+  env "android-ndk-#{new_resource.version}" do
+    key_name "ANDROID_NDK_#{new_resource.version.upcase}"
+    value "#{node['ark']['prefix_root']}/android-ndk-#{new_resource.version}"
     not_if { platform?('windows') }
+    action :delete
   end
 end
