@@ -10,6 +10,7 @@ chef_version '>= 12.5' if respond_to?(:chef_version)
 
 depends 'java'
 depends 'ark'
+depends 'env' # custom resource/cookbook for setting env vars
 
 # TODO: maybe put maven into depends section
 # recommends 'maven' # Maven 3.1.1+ is required by android-sdk::maven-rescue recipe
