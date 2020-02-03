@@ -70,6 +70,8 @@ action :install do
   # Force it to save snapshots on exit (and avoid prompting when emulator exits!)
   template "#{new_resource.home}/.android/avd/#{new_resource.name}.avd/quickBootChoice.ini" do
     cookbook 'android'
+    owner new_resource.user
+    group new_resource.group
     variables lazy {
       {
         saveOnExit: true,
