@@ -48,7 +48,8 @@ CHECKSUMS = {
     'windows-x86'    => '8892584c86da97d3bd107389291a4e4fe2d601762621923084673dd0fb0afb73',
     'windows-x86_64' => '7e6d03087e2faa46231554887af4a6bc01b5ca37c6e0e7ca7161b86c51eed4b7',
   },
-  r19c: {
+  # r17c is 17.2.4988734
+  r19c: { # 19.2.5345600
     'darwin-x86_64'  => '4eeaddcb4bb58b2a10a9712f9b8e84ea83889786a88923879e973058f59281cf',
     'linux-x86_64'   => '4c62514ec9c2309315fd84da6d52465651cdb68605058f231f1e480fcf2692e1',
     'windows-x86'    => '800c3c6ba616ddf25097d43566d5d574f9e6c0a10538bf60dd5be0e024f732cd',
@@ -59,6 +60,17 @@ CHECKSUMS = {
     'linux-x86_64'   => '57435158f109162f41f2f43d5563d2164e4d5d0364783a9a6fab3ef12cb06ce0',
     'windows-x86'    => '7541bacd22f5757b9947314ee71111e18fc7db852ac67b23b7dbace229b941cf',
     'windows-x86_64' => '315cdfdb971ee85a71e267da2cc7d6667ec722c3649aedc45cd42a97b2e8b056',
+  },
+  r20b: { # 20.1.5948944
+    'darwin-x86_64'  => '4d760db479de1b6e54f5da2fe894a35f120ad4d6ccf4b989254940183ca00c08',
+    'linux-x86_64'   => '8381c440fe61fcbb01e209211ac01b519cd6adf51ab1c2281d5daad6ca4c8c8c',
+    'windows-x86'    => '58a79270e419c299c05084ec06d36c117e26b038b38bcde17af4ec3c45c29f5c',
+    'windows-x86_64' => 'b9dd083aae7a29c887876ffb3840d4b192dee1a05ad9dbf545f2facd00b4e821',
+  },
+  r21c: { # 21.2.6472646
+    'darwin-x86_64'  => '99b31144aaae27e8becc6bc6f880dcd9949545cf0af5cad60f1111aecb3d6721',
+    'linux-x86_64'   => '214ebfcfa5108ba78f5b2cc8db4d575068f9c973ac7f27d2fa1987dfdb76c9e7',
+    'windows-x86_64' => 'd35730b13694ec3eb9a51ae3b4a82f47065bb36735a73b53e02e740a830eaede',
   },
 }.freeze
 
