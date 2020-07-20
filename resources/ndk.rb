@@ -60,6 +60,11 @@ CHECKSUMS = {
     'windows-x86'    => '7541bacd22f5757b9947314ee71111e18fc7db852ac67b23b7dbace229b941cf',
     'windows-x86_64' => '315cdfdb971ee85a71e267da2cc7d6667ec722c3649aedc45cd42a97b2e8b056',
   },
+  r21d: {
+    'darwin-x86_64'  => '5851115c6fc4cce26bc320295b52da240665d7ff89bda2f5d5af1887582f5c48',
+    'linux-x86_64'   => 'dd6dc090b6e2580206c64bcee499bc16509a5d017c6952dcd2bed9072af67cbd',
+    'windows-x86_64' => '18335e57f8acab5a4acf6a2204130e64f99153015d55eb2667f8c28d4724d927',
+  },
 }.freeze
 
 def initialize(*args)
