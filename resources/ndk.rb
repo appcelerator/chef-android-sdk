@@ -72,6 +72,11 @@ CHECKSUMS = {
     'linux-x86_64'   => '214ebfcfa5108ba78f5b2cc8db4d575068f9c973ac7f27d2fa1987dfdb76c9e7',
     'windows-x86_64' => 'd35730b13694ec3eb9a51ae3b4a82f47065bb36735a73b53e02e740a830eaede',
   },
+  r21d: {
+    'darwin-x86_64'  => '5851115c6fc4cce26bc320295b52da240665d7ff89bda2f5d5af1887582f5c48',
+    'linux-x86_64'   => 'dd6dc090b6e2580206c64bcee499bc16509a5d017c6952dcd2bed9072af67cbd',
+    'windows-x86_64' => '18335e57f8acab5a4acf6a2204130e64f99153015d55eb2667f8c28d4724d927',
+  },
 }.freeze
 
 def initialize(*args)
