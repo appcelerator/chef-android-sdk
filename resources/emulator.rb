@@ -24,6 +24,7 @@ property :launch, [true, false], default: false # Do we launch the emulator afte
 property :user, String, required: true
 property :group, [String, Integer], required: true
 property :home, String, default: lazy { |r| ::Dir.home(r.user) }
+property :gpu_mode, String, default: 'auto'
 
 # Path to Android SDK to use to manage avd (avdmanager in tool)
 property :sdk, String, default: lazy { ::File.join(node['ark']['prefix_home'], 'android-sdk') }
@@ -61,6 +62,7 @@ action :install do
         disk_size: new_resource.disk_size,
         platform: new_resource.platform,
         avd_dir: "#{new_resource.home}/.android/avd/#{new_resource.name}.avd",
+        gpu_mode: new_resource.gpu_mode
       }
     }
     # If first time, or config has changed, launch the emulator once
