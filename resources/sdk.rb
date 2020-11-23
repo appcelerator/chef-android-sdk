@@ -40,6 +40,7 @@ property :checksum, String, default: lazy { |r| CHECKSUMS[r.version][platform] }
 property :url, String, default: lazy { |r| "https://dl.google.com/android/repository/sdk-tools-#{platform}-#{r.version}.zip" }
 property :path, String, name_property: true
 property :timeout, Integer, default: 1800
+property :mode, [Integer, String], default: 0755
 
 def initialize(*args)
   super
@@ -55,6 +56,7 @@ action :install do
     version new_resource.version
     owner new_resource.owner
     group new_resource.group
+    mode new_resource.mode
     action :put
     strip_components 0
   end
@@ -92,7 +94,7 @@ action :install do
   # Prepend typical android SDK binary paths to PATH (note that the ANDROID_HOME value is separate)
   env "ANDROID_HOME_PATH" do
     key_name 'PATH'
-    value    [ '${ANDROID_HOME}tools/bin', '${ANDROID_HOME}tools', '${ANDROID_HOME}platform-tools' ]
+    value    [ '${ANDROID_HOME}tools/bin', '${ANDROID_HOME}emulator', '${ANDROID_HOME}tools', '${ANDROID_HOME}platform-tools' ]
     prepend  false
     not_if   { platform?('windows') }
     only_if  { node['android']['set_environment_variables'] }
