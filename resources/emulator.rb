@@ -55,7 +55,7 @@ action :install do
       {
         abi: new_resource.abi,
         sdcard: new_resource.sdcard,
-        ram: new_resource.ram,
+        ram: [new_resource.ram, node['memory']['total'].to_i / 4].min, # Cap at 25% of system RAM
         tag: new_resource.tag,
         heap: new_resource.heap,
         skin: new_resource.skin,
