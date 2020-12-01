@@ -25,6 +25,16 @@ property :user, String, required: true
 property :group, [String, Integer], required: true
 property :home, String, default: lazy { |r| ::Dir.home(r.user) }
 property :gpu_mode, String, default: 'auto'
+# density is typically around:
+# ldpi  120dpi	0.75x	Resources for low-density (ldpi) screens.
+# mdpi	~160dpi	1x	Resources for medium-density (mdpi) screens. (This is the baseline density.)
+# hdpi	~240dpi	1.5x	Resources for high-density (hdpi) screens.
+# xhdpi	~320dpi	2x	Resources for extra-high-density (xhdpi) screens.
+# xxhdpi	~480dpi	3x	Resources for extra-extra-high-density (xxhdpi) screens.
+# xxxhdpi	~640dpi 4x
+property :density, Integer, default: 320
+property :height, Integer, default: 1920
+property :width, Integer, default: 1080
 
 # Path to Android SDK to use to manage avd (avdmanager in tool)
 property :sdk, String, default: lazy { ::File.join(node['ark']['prefix_home'], 'android-sdk') }
@@ -41,6 +51,37 @@ action :install do
     group new_resource.group
   end
 
+  # TODO: Support using a device profile name!
+  # "Galaxy Nexus"
+  # "Nexus 10"
+  # "Nexus 4"
+  # "Nexus 5"
+  # "Nexus 5X"
+  # "Nexus 6"
+  # "Nexus 6P"
+  # "Nexus 7 2013"
+  # "Nexus 7"
+  # "Nexus 9"
+  # "Nexus One"
+  # "Nexus S"
+  # "pixel"
+  # "pixel_c"
+  # "pixel_xl"
+  # "2.7in QVGA"
+  # "2.7in QVGA slider"
+  # "3.2in HVGA slider (ADP1)"
+  # "3.2in QVGA (ADP2)"
+  # "3.3in WQVGA"
+  # "3.4in WQVGA"
+  # "3.7 FWVGA slider"
+  # "3.7in WVGA (Nexus One)"
+  # "4in WVGA (Nexus S)"
+  # "4.65in 720p (Galaxy Nexus)"
+  # "4.7in WXGA"
+  # "5.1in WVGA"
+  # "5.4in FWVGA"
+  # "7in WSVGA (Tablet)"
+  # "10.1in WXGA (Tablet)"
   execute "create avd #{new_resource.name}" do
     command "echo | #{new_resource.sdk}/tools/bin/avdmanager create avd -n '#{new_resource.name}' -k 'system-images;#{new_resource.platform};#{new_resource.tag};#{new_resource.abi}' -c #{new_resource.sdcard} -f -p '#{new_resource.home}/.android/avd/#{new_resource.name}.avd' -g #{new_resource.tag}"
     user new_resource.user
@@ -60,6 +101,9 @@ action :install do
         heap: new_resource.heap,
         skin: new_resource.skin,
         disk_size: new_resource.disk_size,
+        density: new_resource.density,
+        height: new_resource.height,
+        width: new_resource.width,
         platform: new_resource.platform,
         avd_dir: "#{new_resource.home}/.android/avd/#{new_resource.name}.avd",
         gpu_mode: new_resource.gpu_mode

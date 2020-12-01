@@ -3,7 +3,9 @@ abi.type=<%= @abi %>
 hw.cpu.arch=<%= @abi %>
 hw.cpu.ncore = 2
 hw.keyboard.lid=no
-hw.lcd.density=320
+hw.lcd.density=<%= @density %>
+hw.lcd.height=<%= @height %>
+hw.lcd.width=<%= @width %>
 hw.mainKeys=no
 hw.ramSize=<%= @ram %>
 image.sysdir.1=system-images/<%= @platform %>/<%= @tag %>/<%= @abi %>/
