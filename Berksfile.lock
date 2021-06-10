@@ -11,7 +11,7 @@ DEPENDENCIES
     path: test/cookbooks/test
 
 GRAPH
-  android (2.2.5)
+  android (2.2.6)
     ark (>= 0.0.0)
     env (>= 0.0.0)
     java (>= 0.0.0)
