@@ -85,14 +85,14 @@ action :install do
   end
 
   # Set ANDROID_HOME to point to this SDK install
-  env "ANDROID_HOME" do
+  environment_variable "ANDROID_HOME" do
     value   "#{new_resource.path}/"
     not_if  { platform?('windows') }
     only_if { node['android']['set_environment_variables'] }
   end
 
   # Prepend typical android SDK binary paths to PATH (note that the ANDROID_HOME value is separate)
-  env "ANDROID_HOME_PATH" do
+  environment_variable "ANDROID_HOME_PATH" do
     key_name 'PATH'
     value    [ '${ANDROID_HOME}tools/bin', '${ANDROID_HOME}emulator', '${ANDROID_HOME}tools', '${ANDROID_HOME}platform-tools' ]
     prepend  false

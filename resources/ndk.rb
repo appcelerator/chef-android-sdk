@@ -101,7 +101,7 @@ action :install do
     not_if { ::File.exist?("/etc/profile.d/android-ndk-#{new_resource.version}.sh") }
   end
 
-  env "ANDROID_NDK_#{new_resource.version.upcase}" do
+  environment_variable "ANDROID_NDK_#{new_resource.version.upcase}" do
     value "#{node['ark']['prefix_root']}/android-ndk-#{new_resource.version}"
     not_if { platform?('windows') }
     only_if { node['android']['set_environment_variables'] }
@@ -114,7 +114,7 @@ action :uninstall do
     action    :delete
   end
 
-  env "android-ndk-#{new_resource.version}" do
+  environment_variable "android-ndk-#{new_resource.version}" do
     key_name "ANDROID_NDK_#{new_resource.version.upcase}"
     value "#{node['ark']['prefix_root']}/android-ndk-#{new_resource.version}"
     not_if { platform?('windows') }
