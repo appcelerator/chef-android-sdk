@@ -3,6 +3,7 @@
 # Resource:: emulator
 #
 resource_name :android_emulator
+provides :android_emulator
 
 default_action :install
 

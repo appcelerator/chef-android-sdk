@@ -3,6 +3,7 @@
 # Resource:: ndk
 #
 resource_name :android_ndk
+provides :android_ndk
 
 default_action :install
 

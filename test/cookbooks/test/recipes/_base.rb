@@ -1,4 +1,4 @@
-if platform?('mac_os_x')
+if platform_family?('mac_os_x')
 	include_recipe 'homebrew'
 	homebrew_cask 'homebrew/cask-versions/adoptopenjdk8'
   else 

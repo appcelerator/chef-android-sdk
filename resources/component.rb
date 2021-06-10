@@ -3,6 +3,7 @@
 # Resource:: component
 #
 resource_name :android_component
+provides :android_component
 
 default_action :install
 
@@ -20,7 +21,7 @@ end
 action :install do
   # Mac OS X already has expect
   package 'expect' do
-    not_if { node['platform'] == 'mac_os_x' }
+    not_if { node['platform_family'] == 'mac_os_x' }
   end
 
   script "Install Android SDK component #{new_resource.name}" do

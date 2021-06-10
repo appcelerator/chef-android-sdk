@@ -3,6 +3,7 @@
 # Resource:: sdk
 #
 resource_name :android_sdk
+provides :android_sdk
 
 default_action :install
 
@@ -26,7 +27,7 @@ owner = 'root'
 group = 'root'
 
 # Overrides by platform
-if node['platform'] == 'mac_os_x'
+if node['platform_family'] == 'mac_os_x'
   platform = 'darwin'
   group = 'wheel'
 elsif node['platform'] == 'windows'
